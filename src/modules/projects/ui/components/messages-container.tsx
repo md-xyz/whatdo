@@ -27,7 +27,7 @@ export const MessagesContainer = ({
         projectId: projectId,
     }, {
         refetchInterval: 2000,
-    }));
+    })) as { data: Array<{ id: string; content: string; role: string; type: string; createdAt: string; updatedAt: string; fragment: Fragment | null }> };
 
     useEffect(() => {
         const lastAssistantMessage = messages.findLast(
@@ -58,12 +58,12 @@ export const MessagesContainer = ({
                         <MessageCard
                             key={message.id}
                             content={message.content}
-                            role={message.role}
+                            role={message.role as import("@/generated/prisma").MessageRole}
                             fragment={message.fragment}
-                            createdAt={message.createdAt}
+                            createdAt={new Date(message.createdAt)}
                             isActiveFragment={activeFragment?.id === message.fragment?.id}
                             onFragmentClick={() => setActiveFragment(message.fragment)}
-                            type={message.type}
+                            type={message.type as import("@/generated/prisma").MessageType}
                         />
                     ))}
                     {isLastMessageUser && <MessageLoading />}

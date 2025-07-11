@@ -30,7 +30,7 @@ export const MessageForm = ({ projectId }: Props) => {
     const router = useRouter();
     const queryClient = useQueryClient();
 
-    const { data: usage } = useQuery(trpc.usage.status.queryOptions());
+    const { data: usage } = useQuery(trpc.usage.status.queryOptions()) as { data: { remainingPoints: number; msBeforeNext: number } | undefined };
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -49,20 +49,31 @@ export const MessageForm = ({ projectId }: Props) => {
                 trpc.usage.status.queryOptions()
             );
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: (error: unknown) => {
+            if (error && typeof error === "object" && "message" in error) {
+                toast.error((error as { message: string }).message);
+            } else {
+                toast.error("An unknown error occurred");
+            }
 
-            if (error.data?.code === "TOO_MANY_REQUESTS") {
-                router.push("/pricing");
+            if (
+                error &&
+                typeof error === "object" &&
+                "data" in error &&
+                error.data &&
+                typeof error.data === "object" &&
+                "code" in (error.data as Record<string, unknown>)
+            ) {
+                const code = (error.data as Record<string, unknown>)["code"];
+                if (code === "TOO_MANY_REQUESTS") {
+                    router.push("/pricing");
+                }
             }
         },
     }));
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        await createMessage.mutateAsync({
-            value: values.value,
-            projectId,
-        });
+        createMessage.mutate({ value: values.value, projectId });
     };
 
     const [isFocused, setIsFocused] = useState(false);

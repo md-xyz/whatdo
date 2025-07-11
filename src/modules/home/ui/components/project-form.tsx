@@ -37,7 +37,7 @@ export const ProjectForm = () => {
     });
 
     const createProject = useMutation(trpc.projects.create.mutationOptions({
-        onSuccess: (data) => {
+        onSuccess: (data: { id: string; name: string; userId: string; createdAt: Date; updatedAt: Date; }) => {
             queryClient.invalidateQueries(
                 trpc.projects.getMany.queryOptions(),
             );
@@ -46,22 +46,34 @@ export const ProjectForm = () => {
             );
             router.push(`/projects/${data.id}`);
         },
-        onError: (error) => {
-            toast.error(error.message);
-
-            if (error.data?.code === "UNAUTHORIZED") {
-                clerk.openSignIn();
+        onError: (error: unknown) => {
+            if (error && typeof error === "object" && "message" in error) {
+                toast.error((error as { message: string }).message);
+            } else {
+                toast.error("An unknown error occurred");
             }
-            if (error.data?.code === "TOO_MANY_REQUESTS") {
-                router.push("/pricing");
+
+            if (
+                error &&
+                typeof error === "object" &&
+                "data" in error &&
+                error.data &&
+                typeof error.data === "object" &&
+                "code" in (error.data as Record<string, unknown>)
+            ) {
+                const code = (error.data as Record<string, unknown>)["code"];
+                if (code === "UNAUTHORIZED") {
+                    clerk.openSignIn();
+                }
+                if (code === "TOO_MANY_REQUESTS") {
+                    router.push("/pricing");
+                }
             }
         },
     }));
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        await createProject.mutateAsync({
-            value: values.value,
-        });
+        createProject.mutate({ value: values.value });
     };
 
     const onSelect = (value: string) => {

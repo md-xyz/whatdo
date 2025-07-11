@@ -32,7 +32,7 @@ export const ProjectHeader = ({ projectId }: Props) => {
     const trpc = useTRPC();
     const { data: project } = useSuspenseQuery(
         trpc.projects.getOne.queryOptions({ id: projectId })
-    );
+    ) as { data: { id: string; name: string; userId: string; createdAt: string; updatedAt: string } };
 
     const { setTheme, theme } = useTheme();
 
