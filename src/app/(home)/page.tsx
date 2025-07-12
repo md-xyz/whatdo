@@ -16,7 +16,7 @@ const Page = () => {
                         className="hidden md:block"
                     />
                 </div>
-                <h1 className="text-2xl md:text-5xl font-bold text-center">
+                <h1 className="text-4xl md:text-5xl font-bold text-center">
                     WhatDo Dev?
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground text-center">
