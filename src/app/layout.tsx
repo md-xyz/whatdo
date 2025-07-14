@@ -18,9 +18,30 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/$/, "");
+
 export const metadata: Metadata = {
   title: "WhatDo? - Ceate Apps and Websites by Chatting with AI",
   description: "Create apps and websites by chatting with AI. Build custom applications, websites, and interactive projects through natural conversation with our AI-powered development platform.",
+  openGraph: {
+    title: "WhatDo? - Ceate Apps and Websites by Chatting with AI",
+    description: "Create apps and websites by chatting with AI. Build custom applications, websites, and interactive projects through natural conversation with our AI-powered development platform.",
+    type: "website",
+    images: [
+      {
+        url: `${baseUrl}/opengraph-image.png`,
+        alt: "WhatDo? - Deploy apps and websites with AI.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WhatDo? - Ceate Apps and Websites by Chatting with AI",
+    description: "Create apps and websites by chatting with AI. Build custom applications, websites, and interactive projects through natural conversation with our AI-powered development platform.",
+    images: [
+      `${baseUrl}/opengraph-image.png`,
+    ],
+  },
 };
 
 export default function RootLayout({
