@@ -142,18 +142,20 @@ export const ProjectForm = () => {
                         </Button>
                     </div>
                 </form>
-                <div className="flex-wrap justify-center gap-2 hidden md:flex max-w-3xl">
-                    {PROJECT_TEMPLATES.map((template) => (
-                        <Button
-                            key={template.title}
-                            variant="outline"
-                            size="sm"
-                            className="bg-white dark:bg-transparent rounded-full"
-                            onClick={() => onSelect(template.prompt)}
-                        >
-                            {template.emoji} {template.title}
-                        </Button>
-                    ))}
+                <div className="flex flex-col items-center gap-3">
+                    <div className="flex-wrap justify-center gap-2 hidden md:flex max-w-3xl">
+                        {PROJECT_TEMPLATES.map((template) => (
+                            <Button
+                                key={template.title}
+                                variant="outline"
+                                size="sm"
+                                className="bg-white dark:bg-transparent rounded-full"
+                                onClick={() => onSelect(template.prompt)}
+                            >
+                                {template.emoji} {template.title}
+                            </Button>
+                        ))}
+                    </div>
                 </div>
             </section>
         </Form>
