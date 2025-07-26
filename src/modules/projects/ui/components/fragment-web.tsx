@@ -25,9 +25,9 @@ export function FragmentWeb({ data }: Props) {
 
     return (
         <div className="flex flex-col w-full h-full">
-            <div className="p-2 border-b bg-sidebar flex items-center gap-x-2">
+            <div className="p-2 border-b bg-sidebar flex items-center gap-x-1 min-w-0">
                 <Hint text="Refresh" side="bottom" align="start">
-                    <Button size="sm" variant="outline" onClick={onRefresh}>
+                    <Button size="sm" variant="outline" onClick={onRefresh} className="shrink-0">
                         <RefreshCcwIcon />
                     </Button>
                 </Hint>
@@ -37,9 +37,9 @@ export function FragmentWeb({ data }: Props) {
                         variant="outline"
                         onClick={handleCopy}
                         disabled={!data.sandboxUrl || copied}
-                        className="flex-1 justify-start text-start font-normal"
+                        className="flex-1 justify-start text-start font-normal min-w-0"
                     >
-                        <span className="truncate">
+                        <span className="truncate block">
                             {data.sandboxUrl}
                         </span>
                     </Button>
@@ -53,6 +53,7 @@ export function FragmentWeb({ data }: Props) {
                             if (!data.sandboxUrl) return;
                             window.open(data.sandboxUrl, "_blank");
                         }}
+                        className="shrink-0"
                     >
                         <ExternalLinkIcon />
                     </Button>
