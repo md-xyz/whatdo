@@ -53,7 +53,7 @@
 }
 
 .dark {
-  --background: oklch(0 0 0);
+  --background: oklch(0.0991 0.0181 269.89);
   --foreground: oklch(1 0 0);
   --card: oklch(0.1400 0 0);
   --card-foreground: oklch(1 0 0);
@@ -160,6 +160,8 @@
   body {
     @apply bg-background text-foreground;
   }
+
+
 }
 
 @layer base {
@@ -167,6 +169,12 @@
   button:not([disabled]),
   [role="button"]:not([disabled]) {
     cursor: pointer;
+  }
+}
+
+@layer utilities {
+  .dark .project-form-gradient {
+    background: radial-gradient(63.94% 63.94% at 50% 0%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.00) 100%), rgba(255, 255, 255, 0.01);
   }
 }
 
