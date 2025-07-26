@@ -94,7 +94,7 @@ export const ProjectForm = () => {
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
                     className={cn(
-                        "relative border p-4 pt-1 rounded-xl bg-sidebar dark:bg-sidebar transition-all",
+                        "relative border p-4 pt-1 rounded-xl bg-sidebar transition-all project-form-gradient",
                         isFocused && "shadow-xs",
                     )}
                 >
@@ -110,7 +110,7 @@ export const ProjectForm = () => {
                                 minRows={2}
                                 maxRows={8}
                                 className="pt-4 resize-none border-none w-full outline-none bg-transparent"
-                                placeholder="What would you like to build?"
+                                placeholder="What build?"
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
                                         e.preventDefault();
@@ -148,7 +148,7 @@ export const ProjectForm = () => {
                             key={template.title}
                             variant="outline"
                             size="sm"
-                            className="bg-white dark:bg-sidebar"
+                            className="bg-white dark:bg-transparent rounded-full"
                             onClick={() => onSelect(template.prompt)}
                         >
                             {template.emoji} {template.title}
