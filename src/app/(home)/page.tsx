@@ -16,11 +16,11 @@ const Page = () => {
                         className="hidden md:block"
                     />
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold text-center">
+                <h1 className="text-4xl md:text-5xl font-bold text-center mb-2 md:mb-3">
                     WhatDo Dev?
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground text-center">
-                    Create apps and websites by chatting with AI
+                    Create an app or website just by chatting with AI
                 </p>
                 <div className="max-w-3xl mx-auto w-full">
                     <ProjectForm />
